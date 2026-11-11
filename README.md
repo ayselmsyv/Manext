@@ -1,97 +1,314 @@
-# AccessPath — AccessCheck (Hackathon MVP)
+ <div align="center">
 
-**Problem:** People with mobility limitations cannot reliably know whether a public building entrance is currently accessible. A ramp may be blocked or an entrance may have stairs without a known step-free alternative.
+# ♿ Manext
 
-**Solution:** A focused, map-first community reporting prototype. **Report → Check → Verify → Prepare a complaint draft**.
+### THE CITY SHOULD WORK FOR EVERYONE.
 
-## MVP features (only 3 core capabilities)
-1. **Report a barrier** — upload a photo, describe the barrier, choose category/place type, and pin the entrance. Optional OpenAI vision gives a *preliminary* image review, model confidence percentage, and OCR transcription of readable signs/text. When confidence is at least 70% and the reported category visually matches, the report earns 10 provisional XP. The result is automatically saved with the report.
-2. **Check an entrance** — view the latest reported condition, image, date/status, and location on an interactive Baku map.
-3. **Contribute evidence / prepare ASAN Müraciət draft** — upload an after-photo for human review, record a demo confirmation, and generate a structured Azerbaijani complaint draft that the user can copy and submit **manually** on the official ASAN platform.
+**One photo can reveal a barrier.  
+One report can make it visible.  
+Thousands of reports could help reshape a city.**
 
-The ASAN draft is a **handoff**, not an integration: **no API, automatic submission, or government affiliation is claimed**. The complaint is not sent by this app. Users must review the text and attach photos themselves.
+<br>
 
-## Run on Windows 11 (PowerShell)
+[![Built with Python](https://img.shields.io/badge/PYTHON-111827?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![FastAPI](https://img.shields.io/badge/FASTAPI-111827?style=for-the-badge&logo=fastapi&logoColor=00D4AA)](https://fastapi.tiangolo.com)
+[![JavaScript](https://img.shields.io/badge/JAVASCRIPT-111827?style=for-the-badge&logo=javascript&logoColor=F7DF1E)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Leaflet](https://img.shields.io/badge/LEAFLET-111827?style=for-the-badge&logo=leaflet&logoColor=5EE0B0)](https://leafletjs.com)
+[![SQLite](https://img.shields.io/badge/SQLITE-111827?style=for-the-badge&logo=sqlite&logoColor=60A5FA)](https://sqlite.org)
 
-Install Python 3.10+ first. Unzip and open the extracted `accesspath-final` folder in VS Code.
+<br>
 
-```powershell
-cd backend
+`AI-ASSISTED` · `MAP-FIRST` · `COMMUNITY-POWERED`
+
+**From invisible obstacles to actionable information.**
+
+---
+
+</div>
+
+## THE PROBLEM ISN'T ALWAYS THE ROAD.
+
+### Sometimes, it's not knowing what's ahead.
+
+Imagine arriving at a building only to discover stairs without a visible accessible alternative.
+
+Or finding that the wheelchair ramp you planned to use is blocked.
+
+For many people with mobility limitations, these are not minor inconveniences. They can determine whether a destination is reachable at all.
+
+And when accessibility information is missing, people are left to discover barriers themselves.
+
+**We believe that should change.**
+
+---
+
+## INTRODUCING ACCESSPATH.
+
+### Your city. Your voice. A clearer path forward.
+
+AccessPath is an AI-assisted urban accessibility reporting platform that helps communities identify and map physical barriers.
+
+No complicated reporting forms.
+
+No manual categorization.
+
+Just **a location, a photo, and a system designed to turn observations into useful accessibility information.**
+
+<div align="center">
+
+### `SPOT IT → SNAP IT → MAP IT`
+
+</div>
+
+---
+
+## THE EXPERIENCE
+
+### Reporting a barrier should take seconds, not paperwork.
+
+```mermaid
+flowchart LR
+    A["01 / PIN"] --> B["02 / SNAP"]
+    B --> C["03 / ANALYZE"]
+    C --> D["04 / REPORT"]
+    D --> E["05 / REWARD"]
+
+    style A fill:#0f172a,color:#ffffff,stroke:#10b981
+    style B fill:#0f172a,color:#ffffff,stroke:#10b981
+    style C fill:#064e3b,color:#ffffff,stroke:#10b981
+    style D fill:#0f172a,color:#ffffff,stroke:#10b981
+    style E fill:#064e3b,color:#ffffff,stroke:#10b981
+```
+
+**01 — Choose your location**
+
+Use GPS, select a point on the map, or enter coordinates.
+
+**02 — Upload one photo**
+
+Capture a potential barrier: stairs, a blocked ramp, an inaccessible entrance, or a damaged sidewalk.
+
+**03 — Let AI assist**
+
+Computer Vision evaluates visible evidence and determines whether the photo appears to show a relevant accessibility barrier.
+
+**04 — Put the problem on the map**
+
+Reports become part of a location-based accessibility information system.
+
+**05 — Make participation rewarding**
+
+Eligible AI-reviewed reports can earn **+10 provisional XP**, encouraging citizens to contribute.
+
+---
+
+## NOT JUST ANOTHER MAP.
+
+### A reporting experience designed around real-world accessibility.
+
+| | Capability | Why it matters |
+|---|---|---|
+| 01 | **AI-Assisted Reporting** | Reduces the need for manual descriptions and categories |
+| 02 | **Location Intelligence** | Connects observations to specific places |
+| 03 | **Visual Evidence** | Gives reports supporting image context |
+| 04 | **Community Incentives** | Encourages participation through provisional XP |
+| 05 | **Review-Aware Workflow** | Keeps uncertain AI results from being treated as confirmed |
+| 06 | **Complaint Drafting** | Helps turn observations into structured reports for official channels |
+
+### Less friction for citizens. More structured information for action.
+
+---
+
+## THE ENGINEERING BEHIND THE EXPERIENCE.
+
+We designed AccessPath as a lightweight, map-first MVP with a clear separation between the interface, API, AI analysis, and data storage.
+
+```mermaid
+flowchart TB
+    USER["CITIZEN"] --> WEB["WEB INTERFACE"]
+
+    subgraph CLIENT["FRONTEND"]
+        WEB --> MAP["LEAFLET / OPENSTREETMAP"]
+        WEB --> UPLOAD["PHOTO + LOCATION"]
+    end
+
+    subgraph CORE["FASTAPI BACKEND"]
+        API["REPORTING API"]
+        LOGIC["ELIGIBILITY + XP LOGIC"]
+        DB[("SQLITE DATABASE")]
+    end
+
+    subgraph INTELLIGENCE["AI ANALYSIS"]
+        VISION["VISION-LANGUAGE MODEL"]
+    end
+
+    UPLOAD --> API
+    API --> VISION
+    VISION --> API
+    API --> LOGIC
+    LOGIC --> DB
+    DB --> MAP
+
+    style CLIENT fill:#0f172a,color:#ffffff,stroke:#334155
+    style CORE fill:#064e3b,color:#ffffff,stroke:#10b981
+    style INTELLIGENCE fill:#0f172a,color:#ffffff,stroke:#334155
+```
+
+### Built with purpose.
+
+**FastAPI** — Lightweight Python API architecture.
+
+**Leaflet + OpenStreetMap** — Interactive geospatial visualization.
+
+**Vision-language AI** — Image understanding for potential barrier identification.
+
+**SQLite** — Simple persistence suited to a hackathon prototype.
+
+**Vanilla JavaScript** — A focused frontend without unnecessary framework overhead.
+
+**Rule-based eligibility** — XP decisions remain separate from the AI's visual description.
+
+---
+
+## A LOOK INSIDE.
+
+### Product demo
+
+*Add a real screenshot or GIF of AccessPath here.*
+
+**Suggested visual sequence:**
+
+`MAP VIEW` → `LOCATION PIN` → `PHOTO UPLOAD` → `AI RESULT` → `+10 XP`
+
+> [!TIP]
+> A short demo GIF is the fastest way to show visitors how AccessPath works.
+
+---
+
+## BUILT FOR BAKU. DESIGNED WITH A BIGGER VISION.
+
+Our first prototype focuses on **Baku, Azerbaijan**.
+
+But inaccessible infrastructure is not unique to one city.
+
+We envision a future where communities can contribute accessibility observations, discover reported barriers, and help make urban infrastructure more inclusive.
+
+### Local starting point. Global relevance.
+
+---
+
+## GET IT RUNNING.
+
+<details>
+<summary><b>01 / SETUP THE PROJECT</b></summary>
+
+Clone:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/AccessPath.git
+cd AccessPath/backend
 python -m venv .venv
-.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-python -m uvicorn main:app --reload --port 8000
 ```
 
-Open **http://127.0.0.1:8000** (API docs: http://127.0.0.1:8000/docs).
-
-If PowerShell blocks activation, run `.venv\Scripts\python.exe -m pip install -r requirements.txt` and `.venv\Scripts\python.exe -m uvicorn main:app --reload --port 8000` instead.
-
-## Optional AI vision
+Install dependencies in Windows PowerShell:
 
 ```powershell
-$env:OPENAI_API_KEY="YOUR_KEY"
-python -m uvicorn main:app --reload --port 8000
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-Without an API key, photo upload still works; report status remains `pending_review`, confidence shows `—%`, OCR is unavailable and XP stays 0. No fabricated AI verdicts. Optional vision calls require internet access and may incur API charges.
+</details>
 
-## Demo scenario (fictional)
+<details>
+<summary><b>02 / CONFIGURE AI</b></summary>
 
-The map starts with four **fictional** accessibility reports around central Baku: blocked clinic ramp, university steps, missing curb ramp at a bus stop, and uneven sidewalk. The pins are **not real verified incidents** and must not be presented as such. No photographs are prefilled for these fictional examples. Create your own report using a consented or appropriately licensed test image.
+Configure the AI provider implemented by your backend.
 
-Suggested judge demo: open the clinic example → explain why outdated entrance information matters → click **Prepare ASAN draft** → copy draft → show official handoff → create a new report and upload a second photo as *pending independent review*. Do not claim a repair was automatically confirmed.
+For Gemini:
 
-## Future development (NOT in MVP)
+```powershell
+$env:GEMINI_API_KEY="YOUR_API_KEY"
+```
 
-- Verified-user identities and anti-spam/anti-duplicate controls
-- Official ASAN Müraciət API integration (only with permission and published API)
-- Personalised step-free routing
-- Real-time entrance sensors, institution-managed status
-- Priority ranking and municipal impact analytics
-- AI before/after comparisons with human oversight
-- Accessible multilingual voice interface
+For OpenAI:
 
-## Architecture
+```powershell
+$env:OPENAI_API_KEY="YOUR_API_KEY"
+```
 
-FastAPI + SQLite + vanilla HTML/CSS/JavaScript + Leaflet/OpenStreetMap. Single origin: backend serves frontend, avoiding CORS setup. The SQLite database is created at `backend/data/accesspath.db` on first run. Uploaded images go to `backend/data/uploads/`.
+The application must include the corresponding provider integration. Environment variables alone do not switch providers.
 
-## Percentage and XP rules
+Never commit real API keys.
 
-The displayed percentage is **model confidence in a visual match**, NOT a measured accessibility score or a guaranteed correctness rate. OCR extracts only text visible to the vision model (e.g. signage); it cannot prove where the photo was taken. Provisional XP is awarded only when an AI review returns a matching barrier at confidence >=70%. There is no account system or anti-fraud yet, so XP is a demo total across reports, not a real personal balance.
+</details>
 
-## Limitations
+<details>
+<summary><b>03 / START THE SERVER</b></summary>
 
-- Prototype only. No login, identity verification, moderation, rate limiting, or production security.
-- Community confirmations are unverified and can be repeated; counts are illustrative, not trusted evidence.
-- New after-photos do **not** automatically change the status to accessible.
-- AI review cannot establish authenticity, location, safety, or the existence of an alternative entrance.
-- Map tiles and Google Fonts require internet; app's list and backend can run locally.
-- Uploaded photos are publicly served from `/uploads`; do not use sensitive photos or personal information in the demo.
+From the backend directory:
 
-## References
+```powershell
+.\.venv\Scripts\python.exe -m uvicorn main:app --reload --port 8000
+```
 
-- ASAN Müraciət: https://asanmuraciet.gov.az/
-- Official ASAN info: https://vxsida.gov.az/az/amis
-- OpenStreetMap: https://www.openstreetmap.org/copyright
-- Leaflet: https://leafletjs.com/
-- FastAPI: https://fastapi.tiangolo.com/
+**Application:** http://127.0.0.1:8000
 
+**API Docs:** http://127.0.0.1:8000/docs
 
-## One-photo immediate XP flow
-Choose a location on the map and upload one image. If AI finds a likely accessibility barrier, the report is saved and a **+10 XP** result appears immediately. There is **no verification-photo step** in this MVP user journey. No confidence percentage is displayed. If AI is unavailable, the report is saved as pending and XP remains zero. AI cannot prove photo authenticity or location. ASAN draft remains available from report details; submission is manual.
+</details>
 
-## Map location selection (updated)
-- Click **Report a Barrier**. Tap the mini-map to select the barrier's location, or choose **Use My Location** (browser permission required; localhost or HTTPS).
-- Alternatively, tap anywhere on the main map to select the location and open the report form automatically.
-- Location selection is mandatory; the app no longer silently assigns a default Baku location.
-- Upload **one photo** and press **Analyze & save photo**. The AI review may award provisional XP if an accessibility barrier is likely visible. No verification photo or confidence percentage is required from the user.
-- Map tiles and location selection require internet access to load Leaflet/OpenStreetMap; geolocation is optional.
+---
 
+## WHAT'S NEXT?
 
-### Location options
-In Report a Barrier, use **Use My Location** (GPS permission), **Choose on Map** (tap a map point), or **Enter Coordinates** (latitude/longitude; works even if map tiles cannot load). A location must be selected before submission. The AI upload still requires internet and a configured API key.
+Our MVP is the foundation for a larger accessibility intelligence system.
 
+- [ ] Complete and validate AI provider integration
+- [ ] Test end-to-end reward eligibility
+- [ ] Community-based report verification
+- [ ] Accessible route recommendations
+- [ ] Offline-first reporting
+- [ ] City-level accessibility insights
+- [ ] Integration with official reporting services
 
-## Instant AI verification and XP
-On one-photo upload, the backend calls the configured vision model, detects a **visible possible** physical barrier, extracts any clearly readable text (OCR), and stores the report. A sufficiently strong AI visual match receives +10 provisional XP immediately. No second verification image or visible confidence percentage is required. Exact image re-uploads and same-category reports within ~25 m are flagged as possible duplicates and earn 0 XP pending review. This is a conservative heuristic and may flag legitimate separate barriers. AI cannot authenticate photo origin, location or date. Without an OpenAI API key or when the model fails, reports remain pending with 0 XP. The MVP does not have authenticated user accounts, so XP is an aggregate demo reward, not a secure per-user wallet.
+These are development goals, not claims of completed functionality.
+
+---
+
+## BUILT WITH RESPONSIBILITY.
+
+> [!IMPORTANT]
+> AI is an assistant, not an accessibility inspector.
+
+A photo cannot independently prove a barrier's location, date, or authenticity. AI assessments may be incorrect, and XP rewards are provisional.
+
+AccessPath does not automatically submit complaints to government systems. Official reporting requires user action.
+
+Demo scenarios are illustrative and should not be mistaken for verified accessibility incidents.
+
+---
+
+<div align="center">
+
+## WE CAN'T FIX WHAT WE CAN'T SEE.
+
+### Let's make accessibility visible.
+
+**ACCESSPATH**
+
+`BUILT FOR PEOPLE. POWERED BY COMMUNITY. ASSISTED BY AI.`
+
+<br>
+
+**Because getting somewhere shouldn't be the hardest part.**
+
+</div>
+
+## with team Lumora
+
+- Aysel Musayeva
+- Nurana Aliyeva
+- Fatima Malikova
+- Sevil Babayeva
+- Namig Mammadzada
+
+</div>
